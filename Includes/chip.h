@@ -99,6 +99,16 @@ __inline void free_s(void * ptr)
 #define malloc_s malloc
 #define free_s free
 #endif
+
+
+typedef struct IODescription_struct{
+	uint32_t port;
+	uint32_t pin;
+	uint32_t gpioPort;
+	uint32_t gpioPin;
+	uint32_t scuModeFunc;
+}IODescription_t;
+
 /** @ingroup CHIP_18XX_43XX_DRIVER_OPTIONS
  * @{
  */
