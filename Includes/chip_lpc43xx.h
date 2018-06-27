@@ -189,7 +189,7 @@ extern "C" {
 #include "gpdma_18xx_43xx.h"
 #include "gpio_18xx_43xx.h"
 #include "pinint_18xx_43xx.h"
-//#include "gpiogroup_18xx_43xx.h"
+#include "gpiogroup_18xx_43xx.h"
 //#include "lcd_18xx_43xx.h"
 #include "mcpwm_18xx_43xx.h"
 //#include "pmc_18xx_43xx.h"
