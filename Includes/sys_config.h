@@ -35,7 +35,7 @@
 
 
 
-#ifdef CORE_M0
+#ifdef CORE_M0APP
 /* LPC43xx M0 Core type */
 #define LPC43XX_CORE_M0APP
 #endif
