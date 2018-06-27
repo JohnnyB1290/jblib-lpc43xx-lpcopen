@@ -371,6 +371,8 @@ uint32_t Chip_Clock_SetupMainPLLMult(CHIP_CGU_CLKIN_T Input, uint32_t mult)
 				(1 << 1) |	/* BYPASS */
 				(1 << 7) |	/* DIRECT */
 				(0x03 << 8) | (0xFF << 16) | (0x03 << 12));	/* PSEL, MSEL, NSEL- divider ratios */
+	
+	PLLReg |= (1 << 11);		/* AUTOBLOCK */
 
 	if (freq < 156000000) {
 		/* psel is encoded such that 0=1, 1=2, 2=4, 3=8 */
@@ -822,3 +824,9 @@ uint32_t Chip_Clock_GetPLLStatus(CHIP_CGU_USB_AUDIO_PLL_T pllnum)
 {
 	return LPC_CGU->PLL[pllnum].PLL_STAT;
 }
+
+
+
+
+
+

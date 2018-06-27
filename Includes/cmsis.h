@@ -29,10 +29,8 @@
 #ifndef __CMSIS_H_
 #define __CMSIS_H_
 
-
 #include "lpc_types.h"
 #include "sys_config.h"
-
 
 /* Select correct CMSIS include file based on CHIP_* definition */
 #if defined(CHIP_LPC43XX)
@@ -62,5 +60,10 @@
 #error "No CHIP_* definition is defined"
 #endif
 
-
 #endif /* __CMSIS_H_ */
+
+
+
+
+
+

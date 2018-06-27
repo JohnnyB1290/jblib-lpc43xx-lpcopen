@@ -84,7 +84,7 @@ typedef struct {
 /**
  * @brief LPC18XX High level ROM API structure
  */
-typedef struct{
+typedef struct {
 	void(*const iap_entry) (uint32_t *, uint32_t *);	/*!< IAP API entry function available on Flash parts only*/
 	const OTP_API_T *pOtp;
 	const AES_API_T *pAes;
@@ -126,3 +126,9 @@ static INLINE void iap_entry(unsigned int cmd_param[], unsigned int status_resul
 #endif
 
 #endif /* __ROMAPI_18XX_43XX_H_ */
+
+
+
+
+
+
