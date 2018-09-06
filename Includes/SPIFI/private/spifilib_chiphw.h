@@ -50,6 +50,7 @@ extern "C" {
 #ifdef __CC_ARM
 #pragma anon_unions
 #endif
+
 /** @defgroup LPCSPIFILIB_HW_API LPCSPIFILIB hardware definitions and API functions
  * @ingroup LPCSPIFILIB
  * @{
@@ -58,7 +59,6 @@ extern "C" {
 /**
  * @brief	SPIFI controller hardware register structure
  */
-
 typedef struct LPC_SPIFI_CHIPHW {
 	volatile    uint32_t CTRL;				/**< SPIFI control register */
 	volatile    uint32_t CMD;					/**< SPIFI command register */

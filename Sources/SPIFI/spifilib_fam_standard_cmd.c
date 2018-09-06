@@ -33,10 +33,6 @@
 #include "SPIFI/spifilib_dev.h"
 #include "SPIFI/private/spifilib_chiphw.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-	
 /* need access to the device register Fx without importing the whole API */
 extern SPIFI_ERR_T spifiDevRegister(SPIFI_FAM_NODE_T *pFamily, SPIFI_DEV_NODE_T *pDevData);
 
@@ -49,15 +45,15 @@ extern SPIFI_ERR_T spifiDevRegister(SPIFI_FAM_NODE_T *pFamily, SPIFI_DEV_NODE_T 
  * S25FL129P 64k Sector<br>
  * S25FL129P 256k Sector {S25FL128S}<br>
  * S25FL164K<br>
- * S25FL256S<br>
- * S25FL512S<br>
+ * S25FL256S (untested)<br>
+ * S25FL512S (untested)<br>
  * MX25L1635E<br>
  * MX25L3235E<br>
  * MX25L6435E<br>
  * MX25L8035E<br>
  * W25Q32FV<br>
  * W25Q64FV<br>
- * W25Q80BV {W25Q80DV}<br>
+ * W25Q80BV<br>
  *
  * Driver Feature Specifics:<br>
  * - common command set<br>
@@ -108,23 +104,17 @@ extern SPIFI_ERR_T spifiDevRegister(SPIFI_FAM_NODE_T *pFamily, SPIFI_DEV_NODE_T 
 #define CMD_0B_FAST_READ            0x0B		/**< Read Data bytes at Fast Speed */
 #define CMD_BB_DIOR                 0xBB		/**< Dual IORead (all dual except op code( */
 #define CMD_EB_QIOR                 0xEB		/**< Quad IORead (all quad except op code) */
-#define CMD_0C_FAST_READ            0x0C		/**< Read Data (4B addr) bytes at Fast Speed */
-#define CMD_BC_DIOR                 0xBC		/**< Dual IORead (4B addr) (all dual except op code( */
-#define CMD_EC_QIOR                 0xEC		/**< Quad IORead (4B addr) (all quad except op code) */
 #define CMD_06_WREN                 0x06		/**< Write Enable */
 #define CMD_20_P4E                  0x20		/**< 4 KB Parameter Sector Erase */
 #define CMD_C7_BE                   0xC7		/**< Bulk Erase */
-#define CMD_D8_SE                   0xD8		/**< Sector Erase */
-#define CMD_DC_SE					0xDC		/**< Sector erase (4B addr) */
+#define CMD_D8_SE                   0xD8		/**< 64KB Sector Erase */
 #define CMD_02_PP                   0x02		/**< Page Programming */
-#define CMD_12_PP                   0x12		/**< Page Programming (4B addr) */
 #define CMD_05_RDSR1                0x05		/**< Read Status Register 1 */
 #define CMD_35_RDSR2                0x35		/**< Read Status Register 2 */
 #define CMD_33_RDSR3                0x33		/**< Read Status Register 3 */
 #define CMD_01_WSR                  0x01		/**< Write Status Registers */
 #define CMD_30_CSR                  0x30		/**< Reset the Erase and Program Fail Flag (SR5 and SR6) and restore normal operation) */
 #define CMD_32_QPP                  0x32		/**< Quad Page Programming */
-#define CMD_34_QPP                  0x34		/**< Quad Page Programming (4B addr) */
 #define CMD_38_QPP_MACRONIX         0x38		/**< Quad Page Programming for 25L3235E */
 
 /* Common status register definitions */
@@ -264,11 +254,6 @@ extern SPIFI_ERR_T spifiDevRegister(SPIFI_FAM_NODE_T *pFamily, SPIFI_DEV_NODE_T 
 #define NEED_spifiDeviceDataInitDeinitS25FL164K (SPIFI_DEVICE_ALL |	\
 												 SPIFI_DEVICE_S25FL164K)
 
-#define NEED_spifiDevice4BInitReadCommand (SPIFI_DEVICE_ALL |	\
-												SPIFI_DEVICE_S25FL256S_64K | \
-												SPIFI_DEVICE_S25FL256S_256K | \
-												SPIFI_DEVICE_S25FL512S)
-
 #define NEED_spifiDeviceInitReadCommand (SPIFI_DEVICE_ALL |	\
 										 SPIFI_DEVICE_S25FL016K | \
 										 SPIFI_DEVICE_S25FL032P | \
@@ -276,6 +261,9 @@ extern SPIFI_ERR_T spifiDevRegister(SPIFI_FAM_NODE_T *pFamily, SPIFI_DEV_NODE_T 
 										 SPIFI_DEVICE_S25FL129P_64K | \
 										 SPIFI_DEVICE_S25FL129P_256K | \
 										 SPIFI_DEVICE_S25FL164K | \
+										 SPIFI_DEVICE_S25FL256S_64K | \
+										 SPIFI_DEVICE_S25FL256S_256K | \
+										 SPIFI_DEVICE_S25FL512S | \
 										 SPIFI_DEVICE_W25Q80BV | \
 										 SPIFI_DEVICE_W25Q32FV | \
 										 SPIFI_DEVICE_W25Q64FV | \
@@ -291,15 +279,13 @@ extern SPIFI_ERR_T spifiDevRegister(SPIFI_FAM_NODE_T *pFamily, SPIFI_DEV_NODE_T 
 										  SPIFI_DEVICE_S25FL129P_64K | \
 										  SPIFI_DEVICE_S25FL129P_256K |	\
 										  SPIFI_DEVICE_S25FL164K | \
+										  SPIFI_DEVICE_S25FL256S_64K | \
+										  SPIFI_DEVICE_S25FL256S_256K |	\
+										  SPIFI_DEVICE_S25FL512S | \
 										  SPIFI_DEVICE_W25Q80BV | \
 										  SPIFI_DEVICE_W25Q32FV | \
 										  SPIFI_DEVICE_W25Q64FV | \
 										  SPIFI_DEVICE_MX25L8035E)
-
-#define NEED_spifiDevice4BInitWriteCommand (SPIFI_DEVICE_ALL |	\
-											SPIFI_DEVICE_S25FL256S_64K | \
-											SPIFI_DEVICE_S25FL256S_256K |	\
-											SPIFI_DEVICE_S25FL512S)
 
 #define NEED_spifiDeviceInitWriteCommandMacronix (SPIFI_DEVICE_ALL |	\
 												  SPIFI_DEVICE_MX25L1635E |	\
@@ -657,7 +643,7 @@ static SPIFI_ERR_T spifiDeviceDataInitDeinitS25FL164K(const SPIFI_HANDLE_T *pHan
 
 /* Function to return spifi controller read cmd */
 #if NEED_spifiDeviceInitReadCommand
-static void spifiDeviceInitReadCommand(const SPIFI_HANDLE_T *pHandle, uint8_t enable,
+void spifiDeviceInitReadCommand(const SPIFI_HANDLE_T *pHandle, uint8_t enable,
 								uint32_t *cmd, uint32_t *iData)
 {
 	if (iData) {
@@ -693,47 +679,9 @@ static void spifiDeviceInitReadCommand(const SPIFI_HANDLE_T *pHandle, uint8_t en
 
 #endif
 
-/* Function to return spifi controller read cmd */
-#if NEED_spifiDevice4BInitReadCommand
-static void spifiDevice4BInitReadCommand(const SPIFI_HANDLE_T *pHandle, uint8_t enable,
-								uint32_t *cmd, uint32_t *iData)
-{
-	if (iData) {
-		*iData = 0xFF;
-	}
-
-	if (pHandle->pInfoData->opts & SPIFI_CAP_QUAD_READ) {
-		*cmd =
-			(SPIFI_CMD_OPCODE(CMD_EC_QIOR) |
-			 SPIFI_CMD_DOUT(0) |
-			 SPIFI_CMD_INTER(3) |
-			 SPIFI_CMD_FIELDFORM(SPIFI_FIELDFORM_SERIAL_OPCODE) |
-			 SPIFI_CMD_FRAMEFORM(SPIFI_FRAMEFORM_OP_4ADDRESS));
-	}
-	else if (pHandle->pInfoData->opts & SPIFI_CAP_DUAL_READ) {
-		*cmd =
-			(SPIFI_CMD_OPCODE(CMD_BC_DIOR) |
-			 SPIFI_CMD_DOUT(0) |
-			 SPIFI_CMD_INTER(1) |
-			 SPIFI_CMD_FIELDFORM(SPIFI_FIELDFORM_SERIAL_OPCODE) |
-			 SPIFI_CMD_FRAMEFORM(SPIFI_FRAMEFORM_OP_4ADDRESS));
-	}
-	/* Default to single lane mode if no other modes enabled */
-	else {
-		*cmd =
-			(SPIFI_CMD_OPCODE(CMD_0C_FAST_READ) |
-			 SPIFI_CMD_DOUT(0) |
-			 SPIFI_CMD_INTER(1) |
-			 SPIFI_CMD_FIELDFORM(SPIFI_FIELDFORM_ALL_SERIAL) |
-			 SPIFI_CMD_FRAMEFORM(SPIFI_FRAMEFORM_OP_4ADDRESS));
-	}
-}
-
-#endif
-
 /* Function to return spifi controller write cmd */
 #if NEED_spifiDeviceInitWriteCommand
-static void spifiDeviceInitWriteCommand(const SPIFI_HANDLE_T *pHandle, uint32_t *cmd)
+void spifiDeviceInitWriteCommand(const SPIFI_HANDLE_T *pHandle, uint32_t *cmd)
 {
 	if (pHandle->pInfoData->opts & SPIFI_CAP_QUAD_WRITE) {
 		*cmd = (SPIFI_CMD_OPCODE(CMD_32_QPP) |
@@ -751,28 +699,9 @@ static void spifiDeviceInitWriteCommand(const SPIFI_HANDLE_T *pHandle, uint32_t 
 
 #endif
 
-#if NEED_spifiDevice4BInitWriteCommand
-static void spifiDevice4BInitWriteCommand(const SPIFI_HANDLE_T *pHandle, uint32_t *cmd)
-{
-	if (pHandle->pInfoData->opts & SPIFI_CAP_QUAD_WRITE) {
-		*cmd = (SPIFI_CMD_OPCODE(CMD_34_QPP) |
-				SPIFI_CMD_DOUT(1) |
-				SPIFI_CMD_FIELDFORM(SPIFI_FIELDFORM_SERIAL_OPCODE_ADDRESS) |
-				SPIFI_CMD_FRAMEFORM(SPIFI_FRAMEFORM_OP_4ADDRESS));
-	}
-	else {
-		*cmd = (SPIFI_CMD_OPCODE(CMD_12_PP) |
-				SPIFI_CMD_DOUT(1) |
-				SPIFI_CMD_FIELDFORM(SPIFI_FIELDFORM_ALL_SERIAL) |
-				SPIFI_CMD_FRAMEFORM(SPIFI_FRAMEFORM_OP_4ADDRESS));
-	}
-}
-
-#endif
-
 /* Function to return spifi controller write cmd */
 #if NEED_spifiDeviceInitWriteCommandMacronix
-static void spifiDeviceInitWriteCommandMacronix(const SPIFI_HANDLE_T *pHandle, uint32_t *cmd)
+void spifiDeviceInitWriteCommandMacronix(const SPIFI_HANDLE_T *pHandle, uint32_t *cmd)
 {
 	if (pHandle->pInfoData->opts & SPIFI_CAP_QUAD_WRITE) {
 		*cmd = (SPIFI_CMD_OPCODE(CMD_38_QPP_MACRONIX) |
@@ -904,11 +833,6 @@ static devGetReadCmdFx spifiDeviceAssignFxReadCmd(SPIFI_HANDLE_T *pHandle)
 		return spifiDeviceInitReadCommand;
 #endif
 	}
-	else if (pHandle->pInfoData->pDeviceData->getReadCmdFxId == FX_spifiDevice4BInitReadCommand) {
-#if NEED_spifiDevice4BInitReadCommand
-		return spifiDevice4BInitReadCommand;
-#endif
-	}
 	return (devGetReadCmdFx) spifiDeviceFxError;
 }
 
@@ -920,11 +844,6 @@ static devGetWriteCmdFx spifiDeviceAssignFxWriteCmd(SPIFI_HANDLE_T *pHandle)
 #if NEED_spifiDeviceInitWriteCommand
 		return spifiDeviceInitWriteCommand;
 #endif
-	}
-	else if (pHandle->pInfoData->pDeviceData->getWriteCmdFxId == FX_spifiDevice4BInitWriteCommand) {
-	#if NEED_spifiDevice4BInitWriteCommand
-			return spifiDevice4BInitWriteCommand;
-	#endif
 	}
 	else if (pHandle->pInfoData->pDeviceData->getWriteCmdFxId == FX_spifiDeviceInitWriteCommandMacronix) {
 #if NEED_spifiDeviceInitWriteCommandMacronix
@@ -1050,18 +969,11 @@ static SPIFI_ERR_T spifiFamFxEraseBlock(const SPIFI_HANDLE_T *pHandle, uint32_t 
 			spifiPrvSetWREN(pSpifiCtrlAddr);
 
 			spifi_HW_SetAddr(pSpifiCtrlAddr, addr);
-			if (pHandle->pInfoData->pDeviceData->caps & SPIFI_CAP_4BYTE_ADDR) {
-				spifi_HW_SetCmd(pSpifiCtrlAddr,
-											(SPIFI_CMD_OPCODE(CMD_DC_SE) |
-											 SPIFI_CMD_FIELDFORM(SPIFI_FIELDFORM_ALL_SERIAL) |
-											 SPIFI_CMD_FRAMEFORM(SPIFI_FRAMEFORM_OP_4ADDRESS)));
-			}
-			else { /* Setup for a 3 Byte address erase */
-				spifi_HW_SetCmd(pSpifiCtrlAddr,
+			spifi_HW_SetCmd(pSpifiCtrlAddr,
 							(SPIFI_CMD_OPCODE(CMD_D8_SE) |
 							 SPIFI_CMD_FIELDFORM(SPIFI_FIELDFORM_ALL_SERIAL) |
 							 SPIFI_CMD_FRAMEFORM(SPIFI_FRAMEFORM_OP_3ADDRESS)));
-			}
+
 			spifi_HW_WaitCMD(pSpifiCtrlAddr);
 
 			/* If blocking is disabled, exit now */
@@ -1099,11 +1011,10 @@ static SPIFI_ERR_T spifiFamFxEraseSubBlock(const SPIFI_HANDLE_T *pHandle, uint32
 			spifiPrvSetWREN(pSpifiCtrlAddr);
 
 			spifi_HW_SetAddr(pSpifiCtrlAddr, addr);
-
 			spifi_HW_SetCmd(pSpifiCtrlAddr,
-						(SPIFI_CMD_OPCODE(CMD_20_P4E) |
-						 SPIFI_CMD_FIELDFORM(SPIFI_FIELDFORM_ALL_SERIAL) |
-						 SPIFI_CMD_FRAMEFORM(SPIFI_FRAMEFORM_OP_3ADDRESS)));
+							(SPIFI_CMD_OPCODE(CMD_20_P4E) |
+							 SPIFI_CMD_FIELDFORM(SPIFI_FIELDFORM_ALL_SERIAL) |
+							 SPIFI_CMD_FRAMEFORM(SPIFI_FRAMEFORM_OP_3ADDRESS)));
 
 			spifi_HW_WaitCMD(pSpifiCtrlAddr);
 
@@ -1446,12 +1357,12 @@ SPIFI_FAM_NODE_T *spifi_REG_FAMILY_CommonCommandSet(void)
 		static const SPIFI_DEVICE_DATA_T pData = {
 			"S25FL512S",
 			{{0x01, 0x02, 0x20}, 0, {0}},	/* JEDEC ID, extCount, ext data  */
-			(SPIFI_CAP_4BYTE_ADDR | SPIFI_CAP_DUAL_READ  | SPIFI_CAP_QUAD_READ | SPIFI_CAP_QUAD_WRITE | SPIFI_CAP_FULLLOCK | SPIFI_CAP_NOBLOCK),
+			(SPIFI_CAP_DUAL_READ | SPIFI_CAP_QUAD_READ | SPIFI_CAP_QUAD_WRITE | SPIFI_CAP_FULLLOCK | SPIFI_CAP_NOBLOCK),
 			256,						/* # of blocks */
 			0x40000,				/* block size */
-			0,						/* # of sub-blocks (Does NOT support full sub-block erase) */
+			0,						/* # of sub-blocks (Does NOT support sub-block erase) */
 			0,						/* sub-block size */
-			512,					/* page size */
+			0x200,					/* page size */
 			MAX_SINGLE_READ,					/* max single read bytes */
 			80,				/* max clock rate in MHz */
 			104,				/* max read clock rate in MHz */
@@ -1463,8 +1374,8 @@ SPIFI_FAM_NODE_T *spifi_REG_FAMILY_CommonCommandSet(void)
 			FX_spifiDeviceDataGetStatusS25FL032P,	/*  (Fx Id) getStatus */
 			FX_spifiDeviceDataSetStatusS25FL032P,	/* (Fx Id) setStatus */
 			FX_spifiDeviceDataSetOptsQuadModeBit9,	/* (Fx Id) to set/clr options */
-			FX_spifiDevice4BInitReadCommand,	/* (Fx Id) to get memoryMode Cmd */
-			FX_spifiDevice4BInitWriteCommand	/* (Fx Id) to get program Cmd */
+			FX_spifiDeviceInitReadCommand,	/* (Fx Id) to get memoryMode Cmd */
+			FX_spifiDeviceInitWriteCommand	/* (Fx Id) to get program Cmd */
 		};
 		static SPIFI_DEV_NODE_T data;			/* Create persistent node */
 
@@ -1477,13 +1388,13 @@ SPIFI_FAM_NODE_T *spifi_REG_FAMILY_CommonCommandSet(void)
 	{
 		static const SPIFI_DEVICE_DATA_T pData = {
 			"S25FL256S 256kSec",
-			{{0x01, 0x02, 0x19}, 2, {0x4D, 0x0}},	/* JEDEC ID, extCount, ext data  */
-			(SPIFI_CAP_4BYTE_ADDR | SPIFI_CAP_DUAL_READ | SPIFI_CAP_QUAD_READ | SPIFI_CAP_QUAD_WRITE | SPIFI_CAP_FULLLOCK | SPIFI_CAP_NOBLOCK),
+			{{0x01, 0x20, 0x19}, 2, {0x4D, 0x0}},	/* JEDEC ID, extCount, ext data  */
+			(SPIFI_CAP_DUAL_READ | SPIFI_CAP_QUAD_READ | SPIFI_CAP_QUAD_WRITE | SPIFI_CAP_FULLLOCK | SPIFI_CAP_NOBLOCK),
 			128,						/* # of blocks */
 			0x40000,				/* block size */
-			0,						/* # of sub-blocks (Does NOT support full sub-block erase) */
+			0,						/* # of sub-blocks (Does NOT support sub-block erase) */
 			0,						/* sub-block size */
-			256,					/* page size */
+			0x100,					/* page size */
 			MAX_SINGLE_READ,					/* max single read bytes */
 			80,				/* max clock rate in MHz */
 			104,				/* max read clock rate in MHz */
@@ -1495,8 +1406,8 @@ SPIFI_FAM_NODE_T *spifi_REG_FAMILY_CommonCommandSet(void)
 			FX_spifiDeviceDataGetStatusS25FL032P,	/*  (Fx Id) getStatus */
 			FX_spifiDeviceDataSetStatusS25FL032P,	/* (Fx Id) setStatus */
 			FX_spifiDeviceDataSetOptsQuadModeBit9,	/* (Fx Id) to set/clr options */
-			FX_spifiDevice4BInitReadCommand,	/* (Fx Id) to get memoryMode Cmd */
-			FX_spifiDevice4BInitWriteCommand	/* (Fx Id) to get program Cmd */
+			FX_spifiDeviceInitReadCommand,	/* (Fx Id) to get memoryMode Cmd */
+			FX_spifiDeviceInitWriteCommand	/* (Fx Id) to get program Cmd */
 		};
 		static SPIFI_DEV_NODE_T data;			/* Create persistent node */
 
@@ -1509,13 +1420,13 @@ SPIFI_FAM_NODE_T *spifi_REG_FAMILY_CommonCommandSet(void)
 	{
 		static const SPIFI_DEVICE_DATA_T pData = {
 			"S25FL256S 64kSec",
-			{{0x01, 0x02, 0x19}, 2, {0x4D, 0x01}},	/* JEDEC ID, extCount, ext data  */
-			(SPIFI_CAP_4BYTE_ADDR | SPIFI_CAP_DUAL_READ | SPIFI_CAP_QUAD_READ | SPIFI_CAP_QUAD_WRITE | SPIFI_CAP_FULLLOCK | SPIFI_CAP_NOBLOCK),
+			{{0x01, 0x20, 0x19}, 2, {0x4D, 0x01}},	/* JEDEC ID, extCount, ext data  */
+			(SPIFI_CAP_DUAL_READ | SPIFI_CAP_QUAD_READ | SPIFI_CAP_QUAD_WRITE | SPIFI_CAP_FULLLOCK | SPIFI_CAP_NOBLOCK),
 			512,					/* # of blocks */
 			0x10000,				/* block size */
-			0,						/* # of sub-blocks (Does NOT support full sub-block erase) */
+			0,						/* # of sub-blocks 32 (This device only has sub-block erase in first/last 2 blocks) */
 			0,						/* sub-block size 0x1000 */
-			256,					/* page size */
+			0x100,					/* page size */
 			MAX_SINGLE_READ,					/* max single read bytes */
 			80,				/* max clock rate in MHz */
 			104,				/* max read clock rate in MHz */
@@ -1527,8 +1438,8 @@ SPIFI_FAM_NODE_T *spifi_REG_FAMILY_CommonCommandSet(void)
 			FX_spifiDeviceDataGetStatusS25FL032P,	/* (Fx Id) getStatus */
 			FX_spifiDeviceDataSetStatusS25FL032P,	/* (Fx Id) setStatus */
 			FX_spifiDeviceDataSetOptsQuadModeBit9,	/* (Fx Id) to set/clr options */
-			FX_spifiDevice4BInitReadCommand,	/* (Fx Id) to get memoryMode Cmd */
-			FX_spifiDevice4BInitWriteCommand	/* (Fx Id) to get program Cmd */
+			FX_spifiDeviceInitReadCommand,	/* (Fx Id) to get memoryMode Cmd */
+			FX_spifiDeviceInitWriteCommand	/* (Fx Id) to get program Cmd */
 		};
 		static SPIFI_DEV_NODE_T data;			/* Create persistent node */
 
@@ -1547,7 +1458,7 @@ SPIFI_FAM_NODE_T *spifi_REG_FAMILY_CommonCommandSet(void)
 			0x10000,				/* block size */
 			2048,					/* # of sub-blocks */
 			0x1000,					/* sub-block size */
-			256,					/* page size */
+			0x100,					/* page size */
 			MAX_SINGLE_READ,					/* max single read bytes */
 			50,				/* max clock rate in MHz */
 			97,				/* max read clock rate in MHz */
@@ -1577,9 +1488,9 @@ SPIFI_FAM_NODE_T *spifi_REG_FAMILY_CommonCommandSet(void)
 			(SPIFI_CAP_DUAL_READ | SPIFI_CAP_QUAD_READ | SPIFI_CAP_QUAD_WRITE | SPIFI_CAP_FULLLOCK | SPIFI_CAP_NOBLOCK),
 			64,						/* # of blocks */
 			0x40000,				/* block size */
-			0,						/* # of sub-blocks (Does NOT support full sub-block erase) */
+			0,						/* # of sub-blocks (Does NOT support sub-block erase) */
 			0,						/* sub-block size */
-			256,					/* page size */
+			0x100,					/* page size */
 			MAX_SINGLE_READ,					/* max single read bytes */
 			80,				/* max clock rate in MHz */
 			104,				/* max read clock rate in MHz */
@@ -1609,9 +1520,9 @@ SPIFI_FAM_NODE_T *spifi_REG_FAMILY_CommonCommandSet(void)
 			(SPIFI_CAP_DUAL_READ | SPIFI_CAP_QUAD_READ | SPIFI_CAP_QUAD_WRITE | SPIFI_CAP_FULLLOCK | SPIFI_CAP_NOBLOCK),
 			256,					/* # of blocks */
 			0x10000,				/* block size */
-			0,						/* # of sub-blocks (Does NOT support full sub-block erase) */
+			0,						/* # of sub-blocks 32 (This device only has sub-block erase in first/last 2 blocks) */
 			0,						/* sub-block size 0x1000 */
-			256,					/* page size */
+			0x100,					/* page size */
 			MAX_SINGLE_READ,					/* max single read bytes */
 			80,				/* max clock rate in MHz */
 			104,				/* max read clock rate in MHz */
@@ -1641,9 +1552,9 @@ SPIFI_FAM_NODE_T *spifi_REG_FAMILY_CommonCommandSet(void)
 			(SPIFI_CAP_DUAL_READ | SPIFI_CAP_QUAD_READ | SPIFI_CAP_QUAD_WRITE | SPIFI_CAP_FULLLOCK | SPIFI_CAP_NOBLOCK),	/* Capabilities */
 			128,					/* # of blocks */
 			0x10000,				/* block size */
-			0,						/* # of sub-blocks  (Does NOT support full sub-block erase) */
+			0,						/* # of sub-blocks  32 (This device only has sub-block erase in first/last 2 blocks) */
 			0,						/* sub-block size  0x1000 */
-			256,					/* page size */
+			0x100,					/* page size */
 			MAX_SINGLE_READ,					/* max single read bytes */
 			80,				/* max clock rate in MHz */
 			104,				/* max read clock rate in MHz */
@@ -1673,9 +1584,9 @@ SPIFI_FAM_NODE_T *spifi_REG_FAMILY_CommonCommandSet(void)
 			(SPIFI_CAP_DUAL_READ | SPIFI_CAP_QUAD_READ | SPIFI_CAP_QUAD_WRITE | SPIFI_CAP_FULLLOCK | SPIFI_CAP_NOBLOCK),	/* Capabilities */
 			64,						/* # of blocks */
 			0x10000,				/* block size */
-			0,						/* # of sub-blocks  (Does NOT support full sub-block erase) */
+			0,						/* # of sub-blocks  32 (This device only has sub-block erase in first/last 2 blocks) */
 			0,						/* sub-block size  0x1000 */
-			256,					/* page size */
+			0x100,					/* page size */
 			MAX_SINGLE_READ,					/* max single read bytes */
 			80,				/* max clock rate in MHz */
 			104,				/* max read clock rate in MHz */
@@ -1706,9 +1617,9 @@ SPIFI_FAM_NODE_T *spifi_REG_FAMILY_CommonCommandSet(void)
 			 SPIFI_CAP_NOBLOCK | SPIFI_CAP_SUBBLKERASE),																							/* Capabilities */
 			32,						/* # of blocks */
 			0x10000,				/* block size */
-			512,					/* # of sub-blocks  (Does NOT support full sub-block erase)*/
+			512,					/* # of sub-blocks  32 (This device only has sub-block erase in first/last 2 blocks) */
 			0x1000,					/* sub-block size  0x1000 */
-			256,					/* page size */
+			0x100,					/* page size */
 			MAX_SINGLE_READ,					/* max single read bytes */
 			80,				/* max clock rate in MHz */
 			104,				/* max read clock rate in MHz */
@@ -1742,7 +1653,7 @@ SPIFI_FAM_NODE_T *spifi_REG_FAMILY_CommonCommandSet(void)
 			0x10000,				/* block size */
 			256,					/* # of sub-blocks */
 			0x1000,					/* sub-block size */
-			256,					/* page size */
+			0x100,					/* page size */
 			MAX_SINGLE_READ,					/* max single read bytes */
 			80,				/* max clock rate in MHz */
 			108,				/* max read clock rate in MHz */
@@ -1775,7 +1686,7 @@ SPIFI_FAM_NODE_T *spifi_REG_FAMILY_CommonCommandSet(void)
 			0x10000,				/* block size */
 			2048,					/* # of sub-blocks */
 			0x1000,					/* sub-block size */
-			256,					/* page size */
+			0x100,					/* page size */
 			MAX_SINGLE_READ,					/* max single read bytes */
 			80,				/* max clock rate in MHz */
 			104,				/* max read clock rate in MHz */
@@ -1808,7 +1719,7 @@ SPIFI_FAM_NODE_T *spifi_REG_FAMILY_CommonCommandSet(void)
 			0x10000,				/* block size */
 			1024,					/* # of sub-blocks */
 			0x1000,					/* sub-block size */
-			256,					/* page size */
+			0x100,					/* page size */
 			MAX_SINGLE_READ,		/* max single read bytes */
 			80,				/* max clock rate in MHz */
 			104,				/* max read clock rate in MHz */
@@ -1841,7 +1752,7 @@ SPIFI_FAM_NODE_T *spifi_REG_FAMILY_CommonCommandSet(void)
 			0x10000,				/* block size */
 			512,					/* # of sub-blocks */
 			0x1000,					/* sub-block size */
-			256,					/* page size */
+			0x100,					/* page size */
 			MAX_SINGLE_READ,		/* max single read bytes */
 			80,				/* max clock rate in MHz */
 			104,				/* max read clock rate in MHz */
@@ -1866,7 +1777,3 @@ SPIFI_FAM_NODE_T *spifi_REG_FAMILY_CommonCommandSet(void)
 	/* finally return the family device structure */
 	return &devFamily;
 }
-
-#ifdef __cplusplus
-}
-#endif
