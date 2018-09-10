@@ -32,11 +32,6 @@
 #include "SPIFI/spifilib_api.h"
 #include "SPIFI/private/spifilib_chiphw.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-	
-	
 /*****************************************************************************
  * Private types/enumerations/variables
  ****************************************************************************/
@@ -46,7 +41,7 @@ extern "C" {
 
 /* Declare the version numbers */
 #define LIBRARY_VERSION_MAJOR (1)
-#define LIBRARY_VERSION_MINOR (03)
+#define LIBRARY_VERSION_MINOR (01)
 
 /* device node count and linked list header */
 static uint32_t famCount = 0;
@@ -867,8 +862,3 @@ SPIFI_ERR_T spifiEraseByAddr(const SPIFI_HANDLE_T *pHandle, uint32_t firstAddr, 
 
 	return err;
 }
-
-#ifdef __cplusplus
-}
-#endif
-	

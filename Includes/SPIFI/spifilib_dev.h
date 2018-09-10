@@ -83,7 +83,6 @@ typedef enum {
 #define SPIFI_CAP_FULLLOCK          (1 << 4)		/**< Full device lock supported */
 #define SPIFI_CAP_BLOCKLOCK         (1 << 5)		/**< Individual block device lock supported */
 #define SPIFI_CAP_SUBBLKERASE       (1 << 6)		/**< Sub-block erase supported */
-#define SPIFI_CAP_4BYTE_ADDR		(1 << 7)		/**< Supports 4 Byte addressing */
 #define SPIFI_CAP_NOBLOCK           (1 << 16)		/**< Non-blocking mode supported */
 
 /**
@@ -181,10 +180,8 @@ typedef enum {
 	FX_spifiDeviceDataSetOptsQuadModeBit6,		/**< Set bit 6 when enabling Quad mode */
 
 	FX_spifiDeviceInitReadCommand,				/**< General return cmdReg value for read */
-	FX_spifiDevice4BInitReadCommand,			/**< General return cmdReg value for read w/ 4Byte address */
 
 	FX_spifiDeviceInitWriteCommand,				/**< General return cmdReg value for write */
-	FX_spifiDevice4BInitWriteCommand,			/**< General return cmdReg value for write w/ 4Byte address */
 	FX_spifiDeviceInitWriteCommandMacronix		/**< Macronix return cmdReg value for write */
 
 } SPIFI_DEVFX_T;
