@@ -50,7 +50,8 @@ So use POST_PACK immediately after struct keyword
 */
 #define PRE_PACK
 #define POST_PACK	__attribute__((__packed__))
-#define ALIGNED(n)      __attribute__((aligned (n)))
+//#define ALIGNED(n)      __attribute__((aligned (n)))
+#define ALIGNED(n)  __align(n)
 
 #elif defined(__arm)
 #define PRE_PACK	__packed
@@ -293,7 +294,7 @@ typedef struct _USB_SETUP_PACKET USB_SETUP_PACKET;
 /** @} */
 
 /** bMaxPower in Configuration Descriptor */
-#define USB_CONFIG_POWER_MA(mA)                ((mA)/2)
+#define USB_CONFIG_POWER_MA(mA)                ((mA) >> 1)
 
 /** bEndpointAddress in Endpoint Descriptor 
  * @{ 
