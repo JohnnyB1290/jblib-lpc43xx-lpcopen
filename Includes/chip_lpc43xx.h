@@ -209,7 +209,7 @@ extern "C" {
 #include "usbhs_18xx_43xx.h"
 #include "wwdt_18xx_43xx.h"
 #include "romapi_18xx_43xx.h"
-//#include "i2cm_18xx_43xx.h"
+#include "i2cm_18xx_43xx.h"
 
 #if defined(CORE_M4)
 #include "fpu_init.h"
