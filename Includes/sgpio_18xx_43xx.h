@@ -516,10 +516,11 @@ static void SGPIO_disableSlices(const uint32_t sliceMask) {
 	LPC_SGPIO->CTRL_DISABLED &= (~sliceMask);
 }
 
+
 static void SGPIO_enableSlices(const bool stop, const uint32_t sliceMask) {
 
-	LPC_SGPIO->CTRL_ENABLED	 |= sliceMask;
 	if(stop == true) LPC_SGPIO->CTRL_DISABLED |= sliceMask;
+	LPC_SGPIO->CTRL_ENABLED	 |= sliceMask;
 }
 
 static void SGPIO_disableSlice(SGPIO_Slice sliceId) {
