@@ -23,7 +23,7 @@
  * limitations under the License.
  *
  * @note
- * This file is a part of JB_Lib_V2.
+ * This file is a part of JB_Lib.
  */
  
 #ifndef WORKSPACE_DEFINES_H_
