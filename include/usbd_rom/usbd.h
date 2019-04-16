@@ -50,8 +50,11 @@ So use POST_PACK immediately after struct keyword
 */
 #define PRE_PACK
 #define POST_PACK	__attribute__((__packed__))
-//#define ALIGNED(n)      __attribute__((aligned (n)))
+#ifdef __CODE_RED
+#define ALIGNED(n)      __attribute__((aligned (n)))
+#else
 #define ALIGNED(n)  __align(n)
+#endif
 
 #elif defined(__arm)
 #define PRE_PACK	__packed
@@ -410,7 +413,7 @@ PRE_PACK struct POST_PACK _USB_DEVICE_DESCRIPTOR
   uint16_t bcdDevice; /**< Device release number in binary-coded decimal. */
   uint8_t  iManufacturer; /**< Index of string descriptor describing manufacturer. */
   uint8_t  iProduct; /**< Index of string descriptor describing product. */
-  uint8_t  iSerialNumber; /**< Index of string descriptor describing the device’s 
+  uint8_t  iSerialNumber; /**< Index of string descriptor describing the deviceï¿½s 
                           serial number.
                           */
   uint8_t  bNumConfigurations; /**< Number of possible configurations. */
@@ -489,7 +492,7 @@ PRE_PACK struct POST_PACK _USB_CONFIGURATION_DESCRIPTOR
                       no longer support. The USB System Software
                       may determine the cause of the failure by
                       checking the status and noting the loss of the
-                      device’s power source.*/
+                      deviceï¿½s power source.*/
 } ;
 /** USB Standard Configuration Descriptor */
 typedef struct _USB_CONFIGURATION_DESCRIPTOR USB_CONFIGURATION_DESCRIPTOR;
@@ -581,7 +584,7 @@ PRE_PACK struct POST_PACK _USB_ENDPOINT_DESCRIPTOR
                             Bit 7: Direction, ignored for control endpoints
                             0 = OUT endpoint
                             1 = IN endpoint.  \n \sa USBD_ENDPOINT_ADR_Type*/
-  uint8_t  bmAttributes; /**< This field describes the endpoint’s attributes when it is
+  uint8_t  bmAttributes; /**< This field describes the endpointï¿½s attributes when it is
                           configured using the bConfigurationValue. \n
                           Bits 1..0: Transfer Type
                           \li 00 = Control
@@ -628,7 +631,7 @@ PRE_PACK struct POST_PACK _USB_ENDPOINT_DESCRIPTOR
   uint8_t  bInterval; /**< Interval for polling endpoint for data transfers.
                       Expressed in frames or microframes depending on the
                       device operating speed (i.e., either 1 millisecond or
-                      125 µs units). 
+                      125 ï¿½s units). 
                       \li For full-/high-speed isochronous endpoints, this value
                       must be in the range from 1 to 16. The bInterval value
                       is used as the exponent for a \f$ 2^(bInterval-1) \f$ value; e.g., a
