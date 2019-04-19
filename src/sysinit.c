@@ -54,17 +54,12 @@ const uint32_t OscRateIn = 12000000;
 /*****************************************************************************
  * Public functions
  ****************************************************************************/
-__attribute__((weak)) void Before_start(void)
-{
-
-}
 
 /* Set up and initialize hardware prior to call to main */
 void SystemInit(void)
 {
 #if defined(CORE_M3) || defined(CORE_M4)
 	unsigned int *pSCB_VTOR = (unsigned int *) 0xE000ED08;
-
 
 #ifdef __CODE_RED
 	extern void (* const g_pfnVectors[])(void);
@@ -78,10 +73,8 @@ void SystemInit(void)
 	fpuInit();
 #endif
 
-	Before_start();
 	/* Chip specific SystemInit */
 	Chip_SystemInit();
-
 
 #endif /* defined(CORE_M3) || defined(CORE_M4) */
 }
