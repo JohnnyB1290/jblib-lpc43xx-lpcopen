@@ -214,37 +214,6 @@ typedef enum SMC_InvQualifier {
 
 } SMC_InvQualifier;
 
-typedef uint32_t SGPIO_SliceMuxConfig;
-
-/* function to make the slice mux register contents */
-static SGPIO_SliceMuxConfig SGPIO_makeSliceMuxConfig (
-	SMC_MatchMode 		matchMode,
-	SMC_ClkCaptureMode	clkCaptureMode,
-	SMC_ClkGenMode		clkGenMode,
-	SMC_InvOutClk		invOutClk,
-	SMC_DataCapMode		dataCaptureMode,
-	SMC_ParallelMode	parallelMode,
-	SMC_InvQualifier	invQualifier)  __attribute__((always_inline));
-
-static SGPIO_SliceMuxConfig SGPIO_makeSliceMuxConfig (
-	SMC_MatchMode 		matchMode,
-	SMC_ClkCaptureMode	clkCaptureMode,
-	SMC_ClkGenMode		clkGenMode,
-	SMC_InvOutClk		invOutClk,
-	SMC_DataCapMode		dataCaptureMode,
-	SMC_ParallelMode	parallelMode,
-	SMC_InvQualifier	invQualifier)
-{
-    return (SGPIO_SliceMuxConfig)(
-        (matchMode << 0)		|
-        (clkCaptureMode << 1) 	|
-        (clkGenMode << 2)     	|
-        (invOutClk << 3)  		|
-        (dataCaptureMode << 4)	|
-		(parallelMode << 6)  	|
-		(invQualifier << 8)
-	);
-}
 /*****************************************************************************/
 
 /******************************************************************************
@@ -335,41 +304,6 @@ typedef enum MC_ConcatOrder {
 
 } MC_ConcatOrder;
 
-typedef uint32_t SGPIO_MuxConfig;
-
-/* function to make the mux register contents */
-static SGPIO_MuxConfig SGPIO_makeMuxConfig (
-	MC_ExtClkEnable 	extClkEnable,
-	MC_ClkSrcPin 		clkSrcPin,
-	MC_ClkSrcSlice 		clkSrcSlice,
-	MC_QualMode 		qualMode,
-	MC_QualPinMode 		qualPinMode,
-	MC_QualSliceMode 	qualSliceMode,
-	MC_ConcatEnable 	concatEnable,
-	MC_ConcatOrder 	concatOrder)  __attribute__((always_inline));
-
-static SGPIO_SliceMuxConfig SGPIO_makeMuxConfig (
-	MC_ExtClkEnable 	extClkEnable,
-	MC_ClkSrcPin 		clkSrcPin,
-	MC_ClkSrcSlice 		clkSrcSlice,
-	MC_QualMode 		qualMode,
-	MC_QualPinMode 		qualPinMode,
-	MC_QualSliceMode 	qualSliceMode,
-	MC_ConcatEnable 	concatEnable,
-	MC_ConcatOrder 		concatOrder)
-{
-    return (SGPIO_SliceMuxConfig)(
-        (extClkEnable << 0)	|
-        (clkSrcPin << 1) 	|
-        (clkSrcSlice << 3)  |
-        (qualMode << 5)  	|
-        (qualPinMode << 7)	|
-		(qualSliceMode << 9)|
-		(concatEnable << 11)|
-		(concatOrder << 12)
-	);
-}
-
 /*****************************************************************************/
 
 /*****************************************************************************/
@@ -406,24 +340,6 @@ typedef enum OMC_PinOeCfg {
 
 } OMC_PinOeCfg;
 
-typedef uint32_t SGPIO_OutMuxConfig;
-
-/* function to make the out mux register contents */
-static SGPIO_OutMuxConfig SGPIO_makeOutMuxConfig (
-	OMC_PinOutCfg 	pinOutCfg,
-	OMC_PinOeCfg 	pinOeCfg
-)  __attribute__((always_inline));
-
-static SGPIO_OutMuxConfig SGPIO_makeOutMuxConfig (
-	OMC_PinOutCfg 	pinOutCfg,
-	OMC_PinOeCfg 	pinOeCfg)
-{
-    return (SGPIO_OutMuxConfig)(
-        (pinOutCfg << 0)	|
-        (pinOeCfg << 4)
-	);
-}
-
 /*****************************************************************************/
 
 typedef uint32_t 	dataReg32;
@@ -455,117 +371,146 @@ typedef struct SgpioSliceCfg  {
 
 } SgpioSliceCfg;
 
-/* functions to write the configuration registers */
-/* function to configure the out mux register */
-static void SGPIO_configOutMuxReg (const SGPIO_Pin pinId, const SGPIO_OutMuxConfig config) __attribute__((always_inline));
+typedef uint32_t SGPIO_SliceMuxConfig;
+/* function to make the slice mux register contents */
+STATIC INLINE SGPIO_SliceMuxConfig SGPIO_makeSliceMuxConfig (
+	SMC_MatchMode 		matchMode,
+	SMC_ClkCaptureMode	clkCaptureMode,
+	SMC_ClkGenMode		clkGenMode,
+	SMC_InvOutClk		invOutClk,
+	SMC_DataCapMode		dataCaptureMode,
+	SMC_ParallelMode	parallelMode,
+	SMC_InvQualifier	invQualifier)
+{
+    return (SGPIO_SliceMuxConfig)(
+        (matchMode << 0)		|
+        (clkCaptureMode << 1) 	|
+        (clkGenMode << 2)     	|
+        (invOutClk << 3)  		|
+        (dataCaptureMode << 4)	|
+		(parallelMode << 6)  	|
+		(invQualifier << 8)
+	);
+}
 
-/* function to configure the mux register */
-static void SGPIO_configMuxReg (const SGPIO_Slice sliceId, const SGPIO_MuxConfig config) __attribute__((always_inline));
+typedef uint32_t SGPIO_MuxConfig;
+/* function to make the mux register contents */
+STATIC INLINE SGPIO_SliceMuxConfig SGPIO_makeMuxConfig (
+	MC_ExtClkEnable 	extClkEnable,
+	MC_ClkSrcPin 		clkSrcPin,
+	MC_ClkSrcSlice 		clkSrcSlice,
+	MC_QualMode 		qualMode,
+	MC_QualPinMode 		qualPinMode,
+	MC_QualSliceMode 	qualSliceMode,
+	MC_ConcatEnable 	concatEnable,
+	MC_ConcatOrder 		concatOrder)
+{
+    return (SGPIO_SliceMuxConfig)(
+        (extClkEnable << 0)	|
+        (clkSrcPin << 1) 	|
+        (clkSrcSlice << 3)  |
+        (qualMode << 5)  	|
+        (qualPinMode << 7)	|
+		(qualSliceMode << 9)|
+		(concatEnable << 11)|
+		(concatOrder << 12)
+	);
+}
 
-/* function to configure the slice mux register */
-static void SGPIO_configSliceMuxReg (const SGPIO_Slice sliceId, const SGPIO_SliceMuxConfig config) __attribute__((always_inline));
+typedef uint32_t SGPIO_OutMuxConfig;
+/* function to make the out mux register contents */
+STATIC INLINE SGPIO_OutMuxConfig SGPIO_makeOutMuxConfig (
+	OMC_PinOutCfg 	pinOutCfg,
+	OMC_PinOeCfg 	pinOeCfg)
+{
+    return (SGPIO_OutMuxConfig)(
+        (pinOutCfg << 0)	|
+        (pinOeCfg << 4)
+	);
+}
 
-/* miscellaneous internal functions to handle start, stop, output enable for the slices */
-static void SGPIO_setOeReg (const SGPIO_Pin pinId, const SGPIO_OutMuxConfig config) __attribute__((always_inline));
-static void SGPIO_clearOeReg (const SGPIO_Pin pinId) __attribute__((always_inline));
-static void SGPIO_disableSlices(const uint32_t sliceMask) __attribute__((always_inline));
-static void SGPIO_enableSlices(const bool stop, const uint32_t sliceMask) __attribute__((always_inline));
-static void SGPIO_disableSlice(SGPIO_Slice sliceId) __attribute__((always_inline));
-static void SGPIO_enableSlice(const bool stop, const SGPIO_Slice sliceId) __attribute__((always_inline));
-
-/* miscellanaous internal functions to write the counter and data registers */
-static void SGPIO_setCountReg(const SGPIO_Slice sliceId, const uint16_t param) __attribute__((always_inline));
-static void SGPIO_setCountReloadReg(const SGPIO_Slice sliceId, const uint16_t param) __attribute__((always_inline));
-static void SGPIO_setBitCountReg(const SGPIO_Slice sliceId, const uint16_t param) __attribute__((always_inline));
-static void SGPIO_writeDataReg(const SGPIO_Slice sliceId, const uint32_t param) __attribute__((always_inline));
-static void SGPIO_readDataReg(const SGPIO_Slice sliceId, const uint8_t wordLength, uint32_t* param) __attribute__((always_inline));
-static void SGPIO_writeDataShadowReg(const SGPIO_Slice sliceId, const uint32_t param) __attribute__((always_inline));
-static void SGPIO_readDataShadowReg(const SGPIO_Slice sliceId, const uint8_t wordLength, uint32_t* param) __attribute__((always_inline));
-
-/* function to configure the out mux register */
-
-static void SGPIO_configMuxReg (const SGPIO_Slice sliceId, const SGPIO_MuxConfig config) {
+STATIC INLINE void SGPIO_configMuxReg (const SGPIO_Slice sliceId, const SGPIO_MuxConfig config) {
 
 	LPC_SGPIO->SGPIO_MUX_CFG[sliceId] = config;
 }
 
-static void SGPIO_configSliceMuxReg (const SGPIO_Slice sliceId, const SGPIO_MuxConfig config) {
+STATIC INLINE void SGPIO_configSliceMuxReg (const SGPIO_Slice sliceId, const SGPIO_MuxConfig config) {
 
 	LPC_SGPIO->SLICE_MUX_CFG[sliceId] = config;
 }
 
-static void SGPIO_configOutMuxReg (const SGPIO_Pin pinId, const SGPIO_MuxConfig config) {
+STATIC INLINE void SGPIO_configOutMuxReg (const SGPIO_Pin pinId, const SGPIO_MuxConfig config) {
 
 	LPC_SGPIO->OUT_MUX_CFG[pinId] = config;
 }
 
-static void SGPIO_setOeReg (const SGPIO_Pin pinId, const SGPIO_OutMuxConfig config) {
+STATIC INLINE void SGPIO_setOeReg (const SGPIO_Pin pinId, const SGPIO_OutMuxConfig config) {
 
 	if((config & 0x70) == OMC_GPIO_OE)
 	LPC_SGPIO->GPIO_OENREG |= (0x1 << pinId);
 }
 
-static void SGPIO_clearOeReg (const SGPIO_Pin pinId) {
+STATIC INLINE void SGPIO_clearOeReg (const SGPIO_Pin pinId) {
 
 	LPC_SGPIO->GPIO_OENREG &= (~(0x1 << pinId));
 }
 
-static void SGPIO_disableSlices(const uint32_t sliceMask) {
+STATIC INLINE void SGPIO_disableSlices(const uint32_t sliceMask) {
 
 	LPC_SGPIO->CTRL_ENABLED	 &= (~sliceMask);
 	LPC_SGPIO->CTRL_DISABLED &= (~sliceMask);
 }
 
 
-static void SGPIO_enableSlices(const bool stop, const uint32_t sliceMask) {
+STATIC INLINE void SGPIO_enableSlices(const bool stop, const uint32_t sliceMask) {
 
 	if(stop == true) LPC_SGPIO->CTRL_DISABLED |= sliceMask;
 	LPC_SGPIO->CTRL_ENABLED	 |= sliceMask;
 }
 
-static void SGPIO_disableSlice(SGPIO_Slice sliceId) {
+STATIC INLINE void SGPIO_disableSlice(SGPIO_Slice sliceId) {
 
 	LPC_SGPIO->CTRL_ENABLED	 &= (~(1 << sliceId));
 	LPC_SGPIO->CTRL_DISABLED	 &= (~(1 << sliceId));
 }
 
-static void SGPIO_enableSlice(const bool stop, const SGPIO_Slice sliceId) {
+STATIC INLINE void SGPIO_enableSlice(const bool stop, const SGPIO_Slice sliceId) {
 
 	LPC_SGPIO->CTRL_ENABLED |= (1 << sliceId);
 	if(stop == true) LPC_SGPIO->CTRL_DISABLED |= (1 << sliceId);
 }
 
-static void SGPIO_setCountReg(const SGPIO_Slice sliceId, const uint16_t param) {
+STATIC INLINE void SGPIO_setCountReg(const SGPIO_Slice sliceId, const uint16_t param) {
 
 	LPC_SGPIO->COUNT[sliceId] = (uint32_t) param & 0xFFF;
 }
 
-static void SGPIO_setCountReloadReg(const SGPIO_Slice sliceId, const uint16_t param) {
+STATIC INLINE void SGPIO_setCountReloadReg(const SGPIO_Slice sliceId, const uint16_t param) {
 
 	LPC_SGPIO->PRESET[sliceId] = ((uint32_t)param & 0x1FFF) - 1;
 }
 
-static void SGPIO_setBitCountReg(const SGPIO_Slice sliceId, const uint16_t param) {
+STATIC INLINE void SGPIO_setBitCountReg(const SGPIO_Slice sliceId, const uint16_t param) {
 
-	LPC_SGPIO->POS[sliceId] = ((((uint32_t)param & 0x1FF) - 1) << 8) | ((uint32_t)param & 0x1FF) - 1;
+	LPC_SGPIO->POS[sliceId] = ((((uint32_t)param & 0x1FF) - 1) << 8) | (((uint32_t)param & 0x1FF) - 1);
 }
 
-static void SGPIO_writeDataReg(const SGPIO_Slice sliceId, const uint32_t param) {
+STATIC INLINE void SGPIO_writeDataReg(const SGPIO_Slice sliceId, const uint32_t param) {
 
 	LPC_SGPIO->REG[sliceId] = param;
 }
 
-static void SGPIO_readDataReg(const SGPIO_Slice sliceId, const uint8_t wordLength, uint32_t* param) {
+STATIC INLINE void SGPIO_readDataReg(const SGPIO_Slice sliceId, const uint8_t wordLength, uint32_t* param) {
 
 	*((uint32_t*)param) = LPC_SGPIO->REG[sliceId] >> (32 - (wordLength));
 }
 
-static void SGPIO_writeDataShadowReg(const SGPIO_Slice sliceId, const uint32_t param) {
+STATIC INLINE void SGPIO_writeDataShadowReg(const SGPIO_Slice sliceId, const uint32_t param) {
 
 	LPC_SGPIO->REG_SS[sliceId] = (uint32_t) param;
 }
 
-static void SGPIO_readDataShadowReg(const SGPIO_Slice sliceId, const uint8_t wordLength, uint32_t* param) {
+STATIC INLINE void SGPIO_readDataShadowReg(const SGPIO_Slice sliceId, const uint8_t wordLength, uint32_t* param) {
 
 	*((uint32_t*)param) = LPC_SGPIO->REG_SS[sliceId] >> (32 - (wordLength));
 }
