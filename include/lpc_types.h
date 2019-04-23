@@ -66,13 +66,13 @@
  * @brief Flag Status and Interrupt Flag Status type definition
  */
 typedef enum {RESET = 0, SET = !RESET} FlagStatus, IntStatus, SetState;
-#define PARAM_SETSTATE(State) ((State == RESET) || (State == SET))
+#define PARAM_SETSTATE(State) (((State) == RESET) || ((State) == SET))
 
 /**
  * @brief Functional State Definition
  */
 typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
-#define PARAM_FUNCTIONALSTATE(State) ((State == DISABLE) || (State == ENABLE))
+#define PARAM_FUNCTIONALSTATE(State) (((State) == DISABLE) || ((State) == ENABLE))
 
 /**
  * @ Status type definition

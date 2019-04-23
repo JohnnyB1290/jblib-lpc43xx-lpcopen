@@ -87,15 +87,15 @@ typedef enum CHIP_EVRT_SRC {
 /**
  * @brief Macro for checking for a valid EVRT source
  */
-#define PARAM_EVRT_SOURCE(n)    ((n == EVRT_SRC_WAKEUP0) || (n == EVRT_SRC_WAKEUP1)	\
-								 || (n == EVRT_SRC_WAKEUP2) || (n == EVRT_SRC_WAKEUP3) \
-								 || (n == EVRT_SRC_ATIMER) || (n == EVRT_SRC_RTC) \
-								 || (n == EVRT_SRC_BOD1) || (n == EVRT_SRC_WWDT) \
-								 || (n == EVRT_SRC_ETHERNET) || (n == EVRT_SRC_USB0) \
-								 || (n == EVRT_SRC_USB1) || (n == EVRT_SRC_CCAN) || (n == EVRT_SRC_SDIO) \
-								 || (n == EVRT_SRC_COMBINE_TIMER2) || (n == EVRT_SRC_COMBINE_TIMER6) \
-								 || (n == EVRT_SRC_QEI) || (n == EVRT_SRC_COMBINE_TIMER14) \
-								 || (n == EVRT_SRC_RESET) || (n == EVRT_SRC_BOD_RESET) || (n == EVRT_SRC_DEEP_POWER_DOWN)) \
+#define PARAM_EVRT_SOURCE(n)    (((n) == EVRT_SRC_WAKEUP0) || ((n) == EVRT_SRC_WAKEUP1)	\
+								 || ((n) == EVRT_SRC_WAKEUP2) || ((n) == EVRT_SRC_WAKEUP3) \
+								 || ((n) == EVRT_SRC_ATIMER) || ((n) == EVRT_SRC_RTC) \
+								 || ((n) == EVRT_SRC_BOD1) || ((n) == EVRT_SRC_WWDT) \
+								 || ((n) == EVRT_SRC_ETHERNET) || ((n) == EVRT_SRC_USB0) \
+								 || ((n) == EVRT_SRC_USB1) || ((n) == EVRT_SRC_CCAN) || ((n) == EVRT_SRC_SDIO) \
+								 || ((n) == EVRT_SRC_COMBINE_TIMER2) || ((n) == EVRT_SRC_COMBINE_TIMER6) \
+								 || ((n) == EVRT_SRC_QEI) || ((n) == EVRT_SRC_COMBINE_TIMER14) \
+								 || ((n) == EVRT_SRC_RESET) || ((n) == EVRT_SRC_BOD_RESET) || ((n) == EVRT_SRC_DEEP_POWER_DOWN)) \
 
 /**
  * @brief EVRT input state detecting type
@@ -110,8 +110,8 @@ typedef enum CHIP_EVRT_SRC_ACTIVE {
 /**
  * @brief Macro for checking for a valid EVRT state type
  */
-#define PARAM_EVRT_SOURCE_ACTIVE_TYPE(n) ((n == EVRT_SRC_ACTIVE_LOW_LEVEL) || (n == EVRT_SRC_ACTIVE_HIGH_LEVEL)	\
-										  || (n == EVRT_SRC_ACTIVE_FALLING_EDGE) || (n == EVRT_SRC_ACTIVE_RISING_EDGE))
+#define PARAM_EVRT_SOURCE_ACTIVE_TYPE(n) (((n) == EVRT_SRC_ACTIVE_LOW_LEVEL) || ((n) == EVRT_SRC_ACTIVE_HIGH_LEVEL)	\
+										  || ((n) == EVRT_SRC_ACTIVE_FALLING_EDGE) || ((n) == EVRT_SRC_ACTIVE_RISING_EDGE))
 
 /**
  * @brief	Initialize the EVRT

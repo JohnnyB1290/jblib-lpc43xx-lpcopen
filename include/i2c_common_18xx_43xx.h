@@ -171,7 +171,7 @@ typedef struct {				/* I2C0 Structure         */
 /*
  * @brief I2C Mask Register definition
  */
-#define I2C_I2MASK_MASK(n)          ((n & 0xFE))/*!< I2C Mask Register mask field */
+#define I2C_I2MASK_MASK(n)          (((n) & 0xFE))/*!< I2C Mask Register mask field */
 
 /*
  * @brief I2C SCL HIGH duty cycle Register definition

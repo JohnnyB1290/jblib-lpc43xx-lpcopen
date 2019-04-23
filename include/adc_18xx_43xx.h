@@ -70,7 +70,7 @@ typedef struct {					/*!< ADCn Structure */
 #define ADC_CR_BURST            ((1UL << 16))			/*!< Repeated conversions A/D enable bit */
 #define ADC_CR_PDN              ((1UL << 21))			/*!< ADC convert is operational */
 #define ADC_CR_START_MASK       ((7UL << 24))			/*!< ADC start mask bits */
-#define ADC_CR_START_MODE_SEL(SEL)  ((SEL << 24))		/*!< Select Start Mode */
+#define ADC_CR_START_MODE_SEL(SEL)  (((SEL) << 24))		/*!< Select Start Mode */
 #define ADC_CR_START_NOW        ((1UL << 24))			/*!< Start conversion now */
 #define ADC_CR_START_CTOUT15    ((2UL << 24))			/*!< Start conversion when the edge selected by bit 27 occurs on CTOUT_15 */
 #define ADC_CR_START_CTOUT8     ((3UL << 24))			/*!< Start conversion when the edge selected by bit 27 occurs on CTOUT_8 */

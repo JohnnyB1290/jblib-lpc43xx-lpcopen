@@ -257,7 +257,7 @@ typedef struct {					/*!< USARTn Structure       */
 #define UART_ICR_IRDAEN         (1 << 0)			/*!< IrDA mode enable */
 #define UART_ICR_IRDAINV        (1 << 1)			/*!< IrDA serial input inverted */
 #define UART_ICR_FIXPULSE_EN    (1 << 2)			/*!< IrDA fixed pulse width mode */
-#define UART_ICR_PULSEDIV(n)    ((n & 0x07) << 3)	/*!< PulseDiv - Configures the pulse when FixPulseEn = 1 */
+#define UART_ICR_PULSEDIV(n)    (((n) & 0x07) << 3)	/*!< PulseDiv - Configures the pulse when FixPulseEn = 1 */
 #define UART_ICR_BITMASK        (0x3F)				/*!< UART IRDA bit mask */
 
 /**
@@ -271,14 +271,14 @@ typedef struct {					/*!< USARTn Structure       */
 #define UART_SCICTRL_SCIEN        (1 << 0)			/*!< enable asynchronous half-duplex smart card interface*/
 #define UART_SCICTRL_NACKDIS      (1 << 1)			/*!< NACK response is inhibited*/
 #define UART_SCICTRL_PROTSEL_T1   (1 << 2)			/*!< ISO7816-3 protocol T1 is selected*/
-#define UART_SCICTRL_TXRETRY(n)   ((n & 0x07) << 5)	/*!< number of retransmission*/
-#define UART_SCICTRL_GUARDTIME(n) ((n & 0xFF) << 8)	/*!< Extra guard time*/
+#define UART_SCICTRL_TXRETRY(n)   (((n) & 0x07) << 5)	/*!< number of retransmission*/
+#define UART_SCICTRL_GUARDTIME(n) (((n) & 0xFF) << 8)	/*!< Extra guard time*/
 
 /**
  * @brief Macro defines for UART Fractional Divider Register
  */
-#define UART_FDR_DIVADDVAL(n)   (n & 0x0F)			/*!< Baud-rate generation pre-scaler divisor */
-#define UART_FDR_MULVAL(n)      ((n << 4) & 0xF0)	/*!< Baud-rate pre-scaler multiplier value */
+#define UART_FDR_DIVADDVAL(n)   ((n) & 0x0F)			/*!< Baud-rate generation pre-scaler divisor */
+#define UART_FDR_MULVAL(n)      (((n) << 4) & 0xF0)	/*!< Baud-rate pre-scaler multiplier value */
 #define UART_FDR_BITMASK        (0xFF)				/*!< UART Fractional Divider register bit mask */
 
 /**

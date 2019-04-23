@@ -79,14 +79,14 @@ typedef struct {			/*!< SSPn Structure         */
 #define SSP_CR0_CPHA_SECOND ((uint32_t) (1 << 7))
 /** SSP serial clock rate value load macro, divider rate is
    PERIPH_CLK / (cpsr * (SCR + 1)) */
-#define SSP_CR0_SCR(n)      ((uint32_t) ((n & 0xFF) << 8))
+#define SSP_CR0_SCR(n)      ((uint32_t) (((n) & 0xFF) << 8))
 /** SSP CR0 bit mask */
 #define SSP_CR0_BITMASK     ((uint32_t) (0xFFFF))
 /** SSP CR0 bit mask */
 #define SSP_CR0_BITMASK     ((uint32_t) (0xFFFF))
 /** SSP serial clock rate value load macro, divider rate is
    PERIPH_CLK / (cpsr * (SCR + 1)) */
-#define SSP_CR0_SCR(n)      ((uint32_t) ((n & 0xFF) << 8))
+#define SSP_CR0_SCR(n)      ((uint32_t) (((n) & 0xFF) << 8))
 
 /**
  * Macro defines for CR1 register

@@ -156,24 +156,24 @@ typedef struct {				/*!< I2S Structure */
 #define I2S_STATE_IRQ       ((uint32_t) (1))/*!< I2S Status Receive or Transmit Interrupt */
 #define I2S_STATE_DMA1      ((uint32_t) (1 << 1))	/*!< I2S Status Receive or Transmit DMA1 */
 #define I2S_STATE_DMA2      ((uint32_t) (1 << 2))	/*!< I2S Status Receive or Transmit DMA2 */
-#define I2S_STATE_RX_LEVEL(n)   ((uint32_t) ((n & 1F) << 8))/*!< I2S Status Current level of the Receive FIFO (5 bits)*/
-#define I2S_STATE_TX_LEVEL(n)   ((uint32_t) ((n & 1F) << 16))	/*!< I2S Status Current level of the Transmit FIFO (5 bits)*/
+#define I2S_STATE_RX_LEVEL(n)   ((uint32_t) (((n) & 1F) << 8))/*!< I2S Status Current level of the Receive FIFO (5 bits)*/
+#define I2S_STATE_TX_LEVEL(n)   ((uint32_t) (((n) & 1F) << 16))	/*!< I2S Status Current level of the Transmit FIFO (5 bits)*/
 
 /*
  * @brief Macro defines for DMA1 register (DMA1 Configuration register)
  */
 #define I2S_DMA1_RX_ENABLE      ((uint32_t) (1))/*!< I2S control DMA1 for I2S receive */
 #define I2S_DMA1_TX_ENABLE      ((uint32_t) (1 << 1))	/*!< I2S control DMA1 for I2S transmit */
-#define I2S_DMA1_RX_DEPTH(n)    ((uint32_t) ((n & 0x1F) << 8))	/*!< I2S set FIFO level that trigger a receive DMA request on DMA1 */
-#define I2S_DMA1_TX_DEPTH(n)    ((uint32_t) ((n & 0x1F) << 16))	/*!< I2S set FIFO level that trigger a transmit DMA request on DMA1 */
+#define I2S_DMA1_RX_DEPTH(n)    ((uint32_t) (((n) & 0x1F) << 8))	/*!< I2S set FIFO level that trigger a receive DMA request on DMA1 */
+#define I2S_DMA1_TX_DEPTH(n)    ((uint32_t) (((n) & 0x1F) << 16))	/*!< I2S set FIFO level that trigger a transmit DMA request on DMA1 */
 
 /*
  * @brief Macro defines for DMA2 register (DMA2 Configuration register)
  */
 #define I2S_DMA2_RX_ENABLE      ((uint32_t) (1))/*!< I2S control DMA2 for I2S receive */
 #define I2S_DMA2_TX_ENABLE      ((uint32_t) (1 << 1))	/*!< I2S control DMA1 for I2S transmit */
-#define I2S_DMA2_RX_DEPTH(n)    ((uint32_t) ((n & 0x1F) << 8))	/*!< I2S set FIFO level that trigger a receive DMA request on DMA1 */
-#define I2S_DMA2_TX_DEPTH(n)    ((uint32_t) ((n & 0x1F) << 16))	/*!< I2S set FIFO level that trigger a transmit DMA request on DMA1 */
+#define I2S_DMA2_RX_DEPTH(n)    ((uint32_t) (((n) & 0x1F) << 8))	/*!< I2S set FIFO level that trigger a receive DMA request on DMA1 */
+#define I2S_DMA2_TX_DEPTH(n)    ((uint32_t) (((n) & 0x1F) << 16))	/*!< I2S set FIFO level that trigger a transmit DMA request on DMA1 */
 
 /*
  * @brief Macro defines for IRQ register (Interrupt Request Control register)
@@ -181,32 +181,32 @@ typedef struct {				/*!< I2S Structure */
 
 #define I2S_IRQ_RX_ENABLE       ((uint32_t) (1))/*!< I2S control I2S receive interrupt */
 #define I2S_IRQ_TX_ENABLE       ((uint32_t) (1 << 1))	/*!< I2S control I2S transmit interrupt */
-#define I2S_IRQ_RX_DEPTH(n)     ((uint32_t) ((n & 0x0F) << 8))	/*!< I2S set the FIFO level on which to create an irq request */
+#define I2S_IRQ_RX_DEPTH(n)     ((uint32_t) (((n) & 0x0F) << 8))	/*!< I2S set the FIFO level on which to create an irq request */
 #define I2S_IRQ_RX_DEPTH_MASK   ((uint32_t) ((0x0F) << 8))
-#define I2S_IRQ_TX_DEPTH(n)     ((uint32_t) ((n & 0x0F) << 16))	/*!< I2S set the FIFO level on which to create an irq request */
+#define I2S_IRQ_TX_DEPTH(n)     ((uint32_t) (((n) & 0x0F) << 16))	/*!< I2S set the FIFO level on which to create an irq request */
 #define I2S_IRQ_TX_DEPTH_MASK   ((uint32_t) ((0x0F) << 16))
 
 /*
  * @brief Macro defines for TXRATE/RXRATE register (Transmit/Receive Clock Rate register)
  */
-#define I2S_TXRATE_Y_DIVIDER(n) ((uint32_t) (n & 0xFF))	/*!< I2S Transmit MCLK rate denominator */
-#define I2S_TXRATE_X_DIVIDER(n) ((uint32_t) ((n & 0xFF) << 8))	/*!< I2S Transmit MCLK rate denominator */
-#define I2S_RXRATE_Y_DIVIDER(n) ((uint32_t) (n & 0xFF))	/*!< I2S Receive MCLK rate denominator */
-#define I2S_RXRATE_X_DIVIDER(n) ((uint32_t) ((n & 0xFF) << 8))	/*!< I2S Receive MCLK rate denominator */
+#define I2S_TXRATE_Y_DIVIDER(n) ((uint32_t) ((n) & 0xFF))	/*!< I2S Transmit MCLK rate denominator */
+#define I2S_TXRATE_X_DIVIDER(n) ((uint32_t) (((n) & 0xFF) << 8))	/*!< I2S Transmit MCLK rate denominator */
+#define I2S_RXRATE_Y_DIVIDER(n) ((uint32_t) ((n) & 0xFF))	/*!< I2S Receive MCLK rate denominator */
+#define I2S_RXRATE_X_DIVIDER(n) ((uint32_t) (((n) & 0xFF) << 8))	/*!< I2S Receive MCLK rate denominator */
 
 /*
  * @brief Macro defines for TXBITRATE & RXBITRATE register (Transmit/Receive Bit Rate register)
  */
-#define I2S_TXBITRATE(n)    ((uint32_t) (n & 0x3F))
-#define I2S_RXBITRATE(n)    ((uint32_t) (n & 0x3F))
+#define I2S_TXBITRATE(n)    ((uint32_t) ((n) & 0x3F))
+#define I2S_RXBITRATE(n)    ((uint32_t) ((n) & 0x3F))
 
 /*
  * @brief Macro defines for TXMODE/RXMODE register (Transmit/Receive Mode Control register)
  */
-#define I2S_TXMODE_CLKSEL(n)    ((uint32_t) (n & 0x03))	/*!< I2S Transmit select clock source (2 bits)*/
+#define I2S_TXMODE_CLKSEL(n)    ((uint32_t) ((n) & 0x03))	/*!< I2S Transmit select clock source (2 bits)*/
 #define I2S_TXMODE_4PIN_ENABLE  ((uint32_t) (1 << 2))	/*!< I2S Transmit control 4-pin mode */
 #define I2S_TXMODE_MCENA        ((uint32_t) (1 << 3))	/*!< I2S Transmit control the TX_MCLK output */
-#define I2S_RXMODE_CLKSEL(n)    ((uint32_t) (n & 0x03))	/*!< I2S Receive select clock source */
+#define I2S_RXMODE_CLKSEL(n)    ((uint32_t) ((n) & 0x03))	/*!< I2S Receive select clock source */
 #define I2S_RXMODE_4PIN_ENABLE  ((uint32_t) (1 << 2))	/*!< I2S Receive control 4-pin mode */
 #define I2S_RXMODE_MCENA        ((uint32_t) (1 << 3))	/*!< I2S Receive control the TX_MCLK output */
 

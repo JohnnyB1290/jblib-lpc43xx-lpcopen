@@ -49,7 +49,7 @@ extern "C" {
 /**The number of EEPROM pages. The last page is not writable.*/
 #define EEPROM_PAGE_NUM                 (128)
 /** Get the eeprom address */
-#define EEPROM_ADDRESS(page, offset)     (EEPROM_START + (EEPROM_PAGE_SIZE * (page)) + offset)
+#define EEPROM_ADDRESS(page, offset)     (EEPROM_START + (EEPROM_PAGE_SIZE * (page)) + (offset))
 #define EEPROM_CLOCK_DIV                 1500000
 #define EEPROM_READ_WAIT_STATE_VAL       0x58
 #define EEPROM_WAIT_STATE_VAL            0x232

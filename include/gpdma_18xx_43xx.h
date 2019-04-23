@@ -83,11 +83,11 @@ typedef struct {						/*!< GPDMA Structure */
 /**
  * @brief Macro defines for DMA channel control registers
  */
-#define GPDMA_DMACCxControl_TransferSize(n) (((n & 0xFFF) << 0))	/*!< Transfer size*/
-#define GPDMA_DMACCxControl_SBSize(n)       (((n & 0x07) << 12))	/*!< Source burst size*/
-#define GPDMA_DMACCxControl_DBSize(n)       (((n & 0x07) << 15))	/*!< Destination burst size*/
-#define GPDMA_DMACCxControl_SWidth(n)       (((n & 0x07) << 18))	/*!< Source transfer width*/
-#define GPDMA_DMACCxControl_DWidth(n)       (((n & 0x07) << 21))	/*!< Destination transfer width*/
+#define GPDMA_DMACCxControl_TransferSize(n) ((((n) & 0xFFF) << 0))	/*!< Transfer size*/
+#define GPDMA_DMACCxControl_SBSize(n)       ((((n) & 0x07) << 12))	/*!< Source burst size*/
+#define GPDMA_DMACCxControl_DBSize(n)       ((((n) & 0x07) << 15))	/*!< Destination burst size*/
+#define GPDMA_DMACCxControl_SWidth(n)       ((((n) & 0x07) << 18))	/*!< Source transfer width*/
+#define GPDMA_DMACCxControl_DWidth(n)       ((((n) & 0x07) << 21))	/*!< Destination transfer width*/
 #define GPDMA_DMACCxControl_SI              ((1UL << 26))			/*!< Source increment*/
 #define GPDMA_DMACCxControl_DI              ((1UL << 27))			/*!< Destination increment*/
 #define GPDMA_DMACCxControl_SrcTransUseAHBMaster1   ((1UL << 24))	/*!< Source AHB master select in 18xx43xx*/
