@@ -154,7 +154,7 @@ typedef enum {
 typedef LPC43XX_IRQn_Type IRQn_Type;
 
 /* Cortex-M4 processor and core peripherals */
-#include "core_cm4.h"
+#include "CMSIS/core_cm4.h"
 
 /**
  * @}

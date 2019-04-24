@@ -32,8 +32,8 @@
 #ifndef __LPC_TYPES_H_
 #define __LPC_TYPES_H_
 
-#include "stdint.h"
-#include "stdbool.h"
+#include <stdint.h>
+#include <stdbool.h>
 
 /** @defgroup LPC_Types CHIP: LPC Common Types
  * @ingroup CHIP_Common
@@ -220,3 +220,9 @@ typedef bool BOOL_8;
  */
 
 #endif /* __LPC_TYPES_H_ */
+
+
+
+
+
+

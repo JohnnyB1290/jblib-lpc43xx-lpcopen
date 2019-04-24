@@ -41,7 +41,7 @@ extern "C" {
  * @{
  */
 
-//#define WATCHDOG_WINDOW_SUPPORT
+#define WATCHDOG_WINDOW_SUPPORT
 
 /** WDT oscillator frequency value */
 #define WDT_OSC     (CGU_IRC_FREQ)
@@ -225,3 +225,9 @@ STATIC INLINE uint32_t Chip_WWDT_GetCurrentCount(LPC_WWDT_T *pWWDT)
 #endif
 
 #endif /* __WWDT_18XX_43XX_H_ */
+
+
+
+
+
+

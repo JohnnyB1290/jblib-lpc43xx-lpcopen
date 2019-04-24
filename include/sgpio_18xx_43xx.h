@@ -526,3 +526,9 @@ STATIC INLINE void SGPIO_readDataShadowReg(const SGPIO_Slice sliceId, const uint
 #endif
 
 #endif /* __SGPIO_43XX_H_ */
+
+
+
+
+
+

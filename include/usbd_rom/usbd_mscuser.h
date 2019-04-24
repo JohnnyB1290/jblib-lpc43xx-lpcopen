@@ -28,7 +28,6 @@
 #include "usbd.h"
 #include "usbd_msc.h"
 #include "usbd_core.h"
-#include "Defines.h"
 
 /** \file
  *  \brief Mass Storage Class (MSC) API structures and function prototypes.
@@ -268,3 +267,9 @@ extern ErrorCode_t mwMSC_init(USBD_HANDLE_T hUsb, USBD_MSC_INIT_PARAM_T* param);
 
 
 #endif  /* __MSCUSER_H__ */
+
+
+
+
+
+

@@ -108,9 +108,9 @@ typedef struct {						/*!< GPDMA Structure */
  * @brief Macro defines for DMA Channel Configuration registers
  */
 #define GPDMA_DMACCxConfig_E                    ((1UL << 0))			/*!< DMA control enable*/
-#define GPDMA_DMACCxConfig_SrcPeripheral(n)     (((n & 0x1F) << 1))		/*!< Source peripheral*/
-#define GPDMA_DMACCxConfig_DestPeripheral(n)    (((n & 0x1F) << 6))		/*!< Destination peripheral*/
-#define GPDMA_DMACCxConfig_TransferType(n)      (((n & 0x7) << 11))		/*!< This value indicates the type of transfer*/
+#define GPDMA_DMACCxConfig_SrcPeripheral(n)     ((((n) & 0x1F) << 1))		/*!< Source peripheral*/
+#define GPDMA_DMACCxConfig_DestPeripheral(n)    ((((n) & 0x1F) << 6))		/*!< Destination peripheral*/
+#define GPDMA_DMACCxConfig_TransferType(n)      ((((n) & 0x7) << 11))		/*!< This value indicates the type of transfer*/
 #define GPDMA_DMACCxConfig_IE                   ((1UL << 14))			/*!< Interrupt error mask*/
 #define GPDMA_DMACCxConfig_ITC                  ((1UL << 15))			/*!< Terminal count interrupt mask*/
 #define GPDMA_DMACCxConfig_L                    ((1UL << 16))			/*!< Lock*/
@@ -384,8 +384,7 @@ Status Chip_GPDMA_Transfer(LPC_GPDMA_T *pGPDMA,
 Status Chip_GPDMA_SGTransfer(LPC_GPDMA_T *pGPDMA,
 							 uint8_t ChannelNum,
 							 const DMA_TransferDescriptor_t *DMADescriptor,
-							 GPDMA_FLOW_CONTROL_T TransferType,uint32_t src,
-						   uint32_t dst);
+							 GPDMA_FLOW_CONTROL_T TransferType);
 
 /**
  * @brief	Prepare a single DMA descriptor
@@ -409,7 +408,7 @@ Status Chip_GPDMA_PrepareDescriptor(LPC_GPDMA_T *pGPDMA,
 									const DMA_TransferDescriptor_t *NextDescriptor);
 /**
  * @brief	Get current DMA Channel TransferSize
-* @param	ChannelNum		: Channel used for transfer
+ * @param	ChannelNum		: Channel used for transfer
  * @return	TransSize
  */
 uint32_t Chip_GPDMA_GetDMAChTransSize(LPC_GPDMA_T *pGPDMA, uint8_t ChannelNum);
@@ -423,3 +422,9 @@ uint32_t Chip_GPDMA_GetDMAChTransSize(LPC_GPDMA_T *pGPDMA, uint8_t ChannelNum);
 #endif
 
 #endif /* __GPDMA_18XX_43XX_H_ */
+
+
+
+
+
+

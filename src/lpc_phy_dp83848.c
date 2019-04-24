@@ -28,9 +28,6 @@
  * copyright, permission, and disclaimer notice must appear in all copies of
  * this code.
  */
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 #include "chip.h"
 #include "lpc_phy.h"
@@ -41,6 +38,8 @@
  * DP83848 PHY.
  * @{
  */
+
+#ifdef ETH_PHY_DP83848
 
 /* DP83848 PHY update flags */
 static uint32_t physts, olddphysts;
@@ -229,6 +228,8 @@ uint32_t lpcPHYStsPoll(void)
 
 	return physts;
 }
+
+#endif
 
 /**
  * @}

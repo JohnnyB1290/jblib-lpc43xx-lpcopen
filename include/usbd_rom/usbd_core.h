@@ -26,7 +26,6 @@
 
 #include "error.h"
 #include "usbd.h"
-#include "Defines.h"
 
 /** \file
  *  \brief ROM API for USB device stack.
@@ -583,3 +582,9 @@ extern void mwUSB_StallEp0(USBD_HANDLE_T hUsb);
 /** @endcond */
 
 #endif  /* __MW_USBD_CORE_H__ */
+
+
+
+
+
+

@@ -28,9 +28,6 @@
  * copyright, permission, and disclaimer notice must appear in all copies of
  * this code.
  */
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 #include "chip.h"
 
@@ -695,12 +692,12 @@ Status Chip_GPDMA_PrepareDescriptor(LPC_GPDMA_T *pGPDMA,
 Status Chip_GPDMA_SGTransfer(LPC_GPDMA_T *pGPDMA,
 							 uint8_t ChannelNum,
 							 const DMA_TransferDescriptor_t *DMADescriptor,
-							 GPDMA_FLOW_CONTROL_T TransferType,uint32_t src,
-						   uint32_t dst)
+							 GPDMA_FLOW_CONTROL_T TransferType)
 {
 	const DMA_TransferDescriptor_t *dsc = DMADescriptor;
 	GPDMA_CH_CFG_T GPDMACfg;
 	uint8_t SrcPeripheral = 0, DstPeripheral = 0;
+	uint32_t src = DMADescriptor->src, dst = DMADescriptor->dst;
 	int ret;
 
 	ret = Chip_GPDMA_InitChannelCfg(pGPDMA, &GPDMACfg, ChannelNum, src, dst, 0, TransferType);
@@ -757,3 +754,6 @@ uint32_t Chip_GPDMA_GetDMAChTransSize(LPC_GPDMA_T *pGPDMA, uint8_t ChannelNum)
 
 	return ((pDMAch->CONTROL)&0xfff);
 }
+
+
+

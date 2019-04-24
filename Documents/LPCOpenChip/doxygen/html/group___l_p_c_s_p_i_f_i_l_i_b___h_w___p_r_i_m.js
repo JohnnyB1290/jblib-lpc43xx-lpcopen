@@ -1,0 +1,26 @@
+var group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m =
+[
+    [ "SPIFI_CMD_DATALEN", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#ga219e33d9f9b85778db628b90809100b3", null ],
+    [ "SPIFI_CMD_DOUT", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#gaf42dda7aced397d5d66a91e53a7ac59e", null ],
+    [ "SPIFI_CMD_FIELDFORM", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#ga3fa2803ce803501ed89aeb51a9ff1715", null ],
+    [ "SPIFI_CMD_FRAMEFORM", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#ga588e2c6094c256d799970bdad73cfd6a", null ],
+    [ "SPIFI_CMD_INTER", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#ga6ba616a9213dff16023f9b5b52c0f07e", null ],
+    [ "SPIFI_CMD_OPCODE", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#ga39b31bb8811dbd645fcbc13e3260bdad", null ],
+    [ "SPIFI_CMD_POLLRS", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#ga449d4320c92e867b827ca0ac35a4345c", null ],
+    [ "SPIFI_CTRL_CSHI", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#ga97562b0e2b41883d0f15e129f4b96cd7", null ],
+    [ "SPIFI_CTRL_DATA_PREFETCH_DISABLE", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#gaa87d14cdbb5575d56021c4fe68ec3d9f", null ],
+    [ "SPIFI_CTRL_DMAEN", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#gab58259ae0278e7d9b67794189eab3267", null ],
+    [ "SPIFI_CTRL_DUAL", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#ga8d532e0a2c0eb178d12e6bddcb404258", null ],
+    [ "SPIFI_CTRL_FBCLK", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#gabfd85e2aff4c3555e6fc18bda821ad06", null ],
+    [ "SPIFI_CTRL_INTEN", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#ga3b934a3fc067d9b8676c6de1b4fe5f8f", null ],
+    [ "SPIFI_CTRL_MODE3", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#ga9b92eaf07dc9eea3aed22b1e624965b2", null ],
+    [ "SPIFI_CTRL_PREFETCH_DISABLE", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#gaba671674e51b96229b672241cefb237a", null ],
+    [ "SPIFI_CTRL_RFCLK", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#gae4723057aa3654dc684a0bd8064b43bc", null ],
+    [ "SPIFI_CTRL_TO", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#ga96d43de9db048410b9d6d57de97a708d", null ],
+    [ "SPIFI_STAT_CMD", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#gad955fdb12bb88d2101f849d26a904e01", null ],
+    [ "SPIFI_STAT_INTRQ", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#gadfdb72835ddc68c37bfb1ffa717c5ff9", null ],
+    [ "SPIFI_STAT_MCINIT", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#ga9ea174bcbe5ba8a6fa264bae5d53d04b", null ],
+    [ "SPIFI_STAT_RESET", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#gaf442534842b5a9acbcbd5de592cfda45", null ],
+    [ "SPIFI_FIELDFORM_T", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#gae4177c2639b4aa20ccdc833c2ef42123", null ],
+    [ "SPIFI_FRAMEFORM_T", "group___l_p_c_s_p_i_f_i_l_i_b___h_w___p_r_i_m.html#ga83a0cb36aa268d35220e3d3e25453bd8", null ]
+];

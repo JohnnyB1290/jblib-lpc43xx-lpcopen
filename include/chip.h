@@ -32,12 +32,6 @@
 #include "sys_config.h"
 #include "cmsis.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
-
 #if defined(CHIP_LPC18XX)
 #include "chip_lpc18xx.h"
 
@@ -48,65 +42,10 @@ extern "C"
 #error CHIP_LPC18XX or CHIP_LPC43XX must be defined
 #endif
 
-#include "PCB_Defines.h"
-#include "Compile_Defines.h"
-#include "Workspace_defines.h"
-
-#define LongToBin(n) ((((n) >> 21 ) & 0x80) | \
-					 (((n) >> 18 ) & 0x40)  | \
-					 (((n) >> 15 ) & 0x20)  | \
-					 (((n) >> 12 ) & 0x10)  | \
-					 (((n) >> 9 ) & 0x08)   | \
-					 (((n) >> 6 ) & 0x04)   | \
-					 (((n) >> 3 ) & 0x02)   | \
-					 ((n) & 0x01))
-
-#define Bin(n) LongToBin(0x##n##l)
-
-typedef void (*VOID_CALLBACK_t)(void);
-typedef bool (*Out_packet_callback_t)(EthernetFrame* Frame_ptr, uint16_t frame_size);
-
-#if !defined(MAX)
-#define MAX(a, b) (((a) > (b)) ? (a) : (b))
-#endif
-#if !defined(MIN)
-#define MIN(a, b) (((a) < (b)) ? (a) : (b))
-#endif
-
-#define D_A_MIN_B_MOD_C(a,b,c) (((a) >= (b))? \
-							   (((a) - (b))):(((a) + (c)) - (b)))
-
-#ifdef USE_THREAD_SAFE_MALLOC
-#include "stdlib.h"
-
-__inline void* malloc_s(size_t size)
+#ifdef __cplusplus
+extern "C"
 {
-	void* ret_ptr = NULL;
-	__disable_irq();
-	ret_ptr = malloc(size);
-	__enable_irq();
-	return ret_ptr;
-}
-
-__inline void free_s(void * ptr)
-{
-	__disable_irq();
-	free(ptr);
-	__enable_irq();
-}
-#else
-#define malloc_s malloc
-#define free_s free
 #endif
-
-
-typedef struct IODescription_struct{
-	uint32_t port;
-	uint32_t pin;
-	uint32_t gpioPort;
-	uint32_t gpioPin;
-	uint32_t scuModeFunc;
-}IODescription_t;
 
 /** @ingroup CHIP_18XX_43XX_DRIVER_OPTIONS
  * @{
@@ -219,3 +158,9 @@ void Chip_SetupIrcClocking(void);
 #endif
 
 #endif /* __CHIP_H_ */
+
+
+
+
+
+

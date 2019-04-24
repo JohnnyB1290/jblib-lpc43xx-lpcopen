@@ -38,6 +38,10 @@
 extern "C" {
 #endif
 
+#if !defined(ETH_PHY_SMSC87X0) && !defined(ETH_PHY_DP83848)
+#define ETH_PHY_SMSC87X0
+#endif
+
 typedef void (*p_msDelay_func_t)(uint32_t);
 
 /** @defgroup BOARD_PHY BOARD: Board specific PHY drivers

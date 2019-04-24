@@ -1,17 +1,14 @@
 # Description
-This repository includes low-level drivers for LPC43XX. Despite it based on [LPCOpen Library](https://www.nxp.com/support/developer-resources/software-development-tools/lpc-developer-resources-/lpcopen-libraries-and-examples:LPC-OPEN-LIBRARIES) v.3.02, some files are deleted, some added from other versions of LPCOpen, and some are modified to use with JB Library.
-Repository also contains Cortex Microcontroller Software Interface Standard (CMSIS) Library includes.
+This repository includes low-level drivers for LPC43XX. Despite it based on [LPCOpen Library](https://www.nxp.com/support/developer-resources/software-development-tools/lpc-developer-resources-/lpcopen-libraries-and-examples:LPC-OPEN-LIBRARIES) v.3.02, some files are deleted, some added from other versions of LPCOpen, and some are modified.
+Repository also contains a part of Cortex Microcontroller Software Interface Standard (CMSIS) Library includes.
 
 # Requirements
 To use this library you must do this:
 1. Add global defines :
     * **CORE_M4** or **CORE_M0**
     * **CORE_M0APP** or **CORE_M0SUB** (if you use one of two M0 cores)
-2. Add files (see Examples folder):
-    * **PCB_Defines.h** Contains description of using hardware.
-    * **Compile_Defines.h** Despite of this defines some code are added or subtract from sources to use or not some options.
-    * **Workspace_defines.h** Contains global defines used in whole workspace in spite of what core was used. Commonly used for addresses description.
-3. Include **chip.h** in all files, where you want to use this library or corresponding defines.
+2. Include **chip.h** in all files, where you want to use this library.
+3. Define **ETH_PHY_SMSC87X0** or **ETH_PHY_DP83848** depending on the phy you use for Ethernet. If you don't do this, **ETH_PHY_SMSC87X0** will be used as default.
 
 # Content
 1. **Drivers**:
@@ -33,18 +30,23 @@ To use this library you must do this:
          * W25Q80BV
     * USB device ROM Stack
     * ADC
+    * AES
     * Alarm Timer
+    * CCAN
     * CGU/CCU
     * CREG
     * DAC
     * EEPROM
+    * External Memory Controller (EMC)
     * Ethernet
     * Event router
     * FLASH Memory Controller (FMC)
     * FPU init code
+    * Global Input Multiplexer Array (GIMA)
     * General Purpose DMA
     * GPIO
     * GPIO group
+    * HS ADC
     * I2C
     * I2S
     * Flash IAP
@@ -54,20 +56,20 @@ To use this library you must do this:
     * Motor Control PWM
     * OTP Controller
     * Pin Interrupt and Pattern Match
+    * Power Management Controller (PMC)
+    * Quadrature Encoder Interface (QEI)
     * Reset Generator Unit (RGU)
     * RI Timer
     * ROM API
+    * RTC
     * State Configurable Timer (SCT)
     * SCU
     * Serial GPIO
     * SSP
+    * SPI
+    * SDMMC
     * 16/32-bit Timer/PWM
     * UART
     * High-Speed USB
     * WWDT
     * Common ring buffer support functions
-2. **Documents:** Datasheets, application notes, etc. For LPC43XX.
-3. **Examples:** Templates of necessary user files.
-
-#### Thread safe malloc/free realization
-It's recomended to always use mallos_s/free_s instead of malloc/free. If USE_THREAD_SAFE_MALLOC define in Compile_Defines.h thread safe realization will be used, if not - library uses standard realization. 

@@ -50,22 +50,22 @@
  */
 typedef struct USBD_API 
 {
-  const USBD_HW_API_T* hw; /**< Pointer to function table which exposes functions
+  const USBD_HW_API_T* hw; /**< Pointer to function table which exposes functions 
                            which interact directly with USB device stack's core 
                            layer.*/
-  const USBD_CORE_API_T* core; /**< Pointer to function table which exposes functions
+  const USBD_CORE_API_T* core; /**< Pointer to function table which exposes functions 
                            which interact directly with USB device controller 
                            hardware.*/
-  const USBD_MSC_API_T* msc; /**< Pointer to function table which exposes functions
+  const USBD_MSC_API_T* msc; /**< Pointer to function table which exposes functions 
                            provided by MSC function driver module.
                            */
-  const USBD_DFU_API_T* dfu; /**< Pointer to function table which exposes functions
+  const USBD_DFU_API_T* dfu; /**< Pointer to function table which exposes functions 
                            provided by DFU function driver module.
                            */
-  const USBD_HID_API_T* hid; /**< Pointer to function table which exposes functions
+  const USBD_HID_API_T* hid; /**< Pointer to function table which exposes functions 
                            provided by HID function driver module.
                            */
-  const USBD_CDC_API_T* cdc; /**< Pointer to function table which exposes functions
+  const USBD_CDC_API_T* cdc; /**< Pointer to function table which exposes functions 
                            provided by CDC-ACM function driver module.
                            */
   const uint32_t* reserved6; /**< Reserved for future function driver module.
@@ -86,4 +86,10 @@ typedef struct USBD_API
 
 
 #endif /*__MW_USBD_ROM_API_H*/
+
+
+
+
+
+
 
