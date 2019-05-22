@@ -122,6 +122,7 @@ typedef enum {
 	I2S1_IRQn                         =  28,/*!<  28  ORed I2S0, I2S1                  */
 	C_CAN0_IRQn                       =  29,/*!<  29  C_CAN0                           */
 	ADCHS_IRQn                        =  30,/*!<  30  ADCHS interrupt                  */
+	SPIFI_IRQn                        =  30,/*!<  30  SPIFI interrupt                  */
 	M0APP_IRQn                        =  31,/*!<  31  M0SUB                            */
 } LPC43XX_M0_IRQn_Type;
 
